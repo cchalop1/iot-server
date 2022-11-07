@@ -5,11 +5,11 @@ type DeviceProps = {
 }
 
 function Device({ device }: DeviceProps) {
-    return (<div key={device.id}>
+    return (<li key={device.id}>
         <div>{device.name}</div>
         <div>{device.id}</div>
         <div>{device.ip}</div>
-    </div>);
+    </li>);
 }
 
 export default Device;

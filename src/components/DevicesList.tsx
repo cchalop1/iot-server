@@ -8,7 +8,7 @@ function DevicesList() {
         return <div></div>;
     if (!devices)
         return <div></div>
-    return <div>{devices.map(device => <Device device={device} />)}</div>
+    return <ul>{devices.map(device => <Device device={device} />)}</ul>
 }
 
 export default DevicesList;
