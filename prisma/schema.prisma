@@ -13,7 +13,6 @@ generator client {
 model Device {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  lastConnection DateTime @default(now())
   ip String
   name String
 }

@@ -1,4 +1,4 @@
-import { useDevices } from "../api";
+import { useDevices } from "../services/device";
 import Device from "./Device";
 
 function DevicesList() {
