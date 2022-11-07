@@ -1,6 +1,7 @@
-export interface Todo {
+export interface Device {
   id: string;
-  created: string;
-  text: string;
-  completed: boolean;
+  createdAt: string;
+  lastConnection: string;
+  ip: string;
+  name: string;
 }

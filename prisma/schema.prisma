@@ -10,9 +10,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Todo {
+model Device {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  text      String
-  completed Boolean
+  lastConnection DateTime @default(now())
+  ip String
+  name String
 }
