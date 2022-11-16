@@ -13,8 +13,6 @@ const Home: NextPage = () => {
 
       <header className={styles.header}>
         <h1 className={styles.title}>Devices</h1>
-        <h2 className={styles.desc}>
-        </h2>
       </header>
 
       <main className={styles.main}>

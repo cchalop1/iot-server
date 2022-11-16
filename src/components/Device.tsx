@@ -1,15 +1,26 @@
 import { Device } from "../types";
+import styles from "../styles/Device.module.css";
+import { useRouter } from "next/router";
+
 
 type DeviceProps = {
     device: Device;
 }
 
 function Device({ device }: DeviceProps) {
-    return (<li key={device.id}>
-        <div>{device.name}</div>
+    const router = useRouter();
+
+    const navigateToDivicePage = () => {
+        router.push(device.name);
+    }
+
+    return (<div className={styles.container} onClick={navigateToDivicePage}>
+        <div className={styles.header}>
+            <div className={styles.name}>{device.name}</div>
+            <div>{device.ip}</div>
+        </div>
         <div>{device.id}</div>
-        <div>{device.ip}</div>
-    </li>);
+    </div>);
 }
 
 export default Device;

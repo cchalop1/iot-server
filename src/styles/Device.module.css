@@ -1,0 +1,20 @@
+.container {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.container:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.name {
+  font-weight: bold;
+  font-size: larger;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
