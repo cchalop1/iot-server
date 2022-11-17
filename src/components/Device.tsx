@@ -11,7 +11,7 @@ function Device({ device }: DeviceProps) {
     const router = useRouter();
 
     const navigateToDivicePage = () => {
-        router.push(device.name);
+        router.push(device.id);
     }
 
     return (<div className={styles.container} onClick={navigateToDivicePage}>

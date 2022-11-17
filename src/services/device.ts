@@ -20,9 +20,18 @@ export const useDevices = () => {
     }
   };
 
+  const fetchDeviceById = async (id: string) => {
+    const res = await fetch(devicePath + "/" + id);
+    if (res.status !== 200)
+      return null;
+    const json = await res.json();
+    return json;
+  }
+
   return {
     devices,
     error,
-    fetchDevices
+    fetchDevices,
+    fetchDeviceById
   };
 };

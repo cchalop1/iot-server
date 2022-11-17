@@ -1,21 +1,25 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
+import { useDebugValue, useEffect } from "react";
+import { useDevices } from "services/device";
 import styles from "../styles/Home.module.css";
 // import mqtt from 'mqtt';
 // import { useEffect } from "react";
 
 const DevicePage = () => {
     const router = useRouter();
+    const { fetchDeviceById } = useDevices();
     const { clientId } = router.query;
-    
-    // useEffect(() => {
-    //     const client = mqtt.connect("mqtt:a147utdkhxxgl-ats.iot.eu-west-3.amazonaws.com");
-    //     client.on('connect', () => console.log("connect"));
-    //     client.on('message', (topic, payload, packet) => {
-    //         console.log(topic, payload, packet)
-    //         // setMessages(messages.concat(payload.toString()));
-    //     });
-    // }, []);
+
+    useEffect(() => {
+        if (clientId) {
+            fetchDeviceById(clientId as string).then(device => {
+                if (!device) {
+                    router.push("/");
+                }
+            })
+        }
+    }, [clientId]);
 
     return (
         <div className={styles.container}>
