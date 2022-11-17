@@ -21,12 +21,16 @@ const getIpRequest = (req: NextApiRequest) => {
   return ip;
 };
 
+const randomId = () => String(Math.round(Math.random() * 10000));
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const { name } = req.query as QueryPostDevice;
     const ip = getIpRequest(req);
+    const id = name + '-' + randomId();
     const newDevice = await prisma.device.create({
       data: {
+        id,
         ip,
         name,
       },
