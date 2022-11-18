@@ -3,31 +3,35 @@ import { useRouter } from "next/router";
 import { useDebugValue, useEffect } from "react";
 import { useDevices } from "services/device";
 import styles from "../styles/Home.module.css";
+import Graphs from "components/Graphs";
 // import mqtt from 'mqtt';
 // import { useEffect } from "react";
 
 const DevicePage = () => {
-    const router = useRouter();
-    const { fetchDeviceById } = useDevices();
-    const { clientId } = router.query;
+  const router = useRouter();
+  const { fetchDeviceById } = useDevices();
+  const { clientId } = router.query;
 
-    useEffect(() => {
-        if (clientId) {
-            fetchDeviceById(clientId as string).then(device => {
-                if (!device) {
-                    router.push("/");
-                }
-            })
+  useEffect(() => {
+    if (clientId) {
+      fetchDeviceById(clientId as string).then(device => {
+        if (!device) {
+          // router.push("/");
         }
-    }, [clientId]);
+      })
+    }
+  }, [clientId]);
 
-    return (
-        <div className={styles.container}>
-            <header className={styles.header}>
-                <h1 className={styles.title}>{clientId}</h1>
-            </header>
-        </div>
-    );
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>{clientId}</h1>
+      </header>
+      <div>
+        <Graphs />
+      </div>
+    </div>
+  );
 };
 
 export default DevicePage;
