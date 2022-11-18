@@ -28,10 +28,25 @@ export const useDevices = () => {
     return json;
   }
 
+  const deleteDeviceById = async (adminToken: string, id: string) => {
+    const option: RequestInit = {
+      headers: { Authorization: adminToken },
+      method: "DELETE"
+    };
+    const res = await fetch(devicePath + "/" + id, option);
+    const json = await res.json();
+    if (res.status === 200) {
+      await fetchDevices(adminToken);
+    } else {
+      console.error(json);
+    }
+  }
+
   return {
     devices,
     error,
     fetchDevices,
-    fetchDeviceById
+    fetchDeviceById,
+    deleteDeviceById,
   };
 };

@@ -11,7 +11,13 @@ function DevicesList() {
     if (typeof window === "undefined")
         return <div></div>
     const [adminToken, setAdminToken] = useState(getLocalToken());
-    const { devices, error, fetchDevices } = useDevices();
+    const { devices, error, fetchDevices, deleteDeviceById } = useDevices();
+
+    const cleanLocalToken = () => {
+        localStorage.removeItem(localStorageId);
+        setAdminToken(null);
+        location.reload();
+    }
 
     useEffect(() => {
         if (adminToken) {
@@ -24,9 +30,21 @@ function DevicesList() {
         }
     }, []);
 
-    if (error)
-        return <div>{error}</div>
-    return <>{devices.map(device => <Device key={device.id} device={device} />)}</>
+    if (error) {
+        return <div>{error}
+            <button onClick={cleanLocalToken}>login</button>
+        </div>
+    }
+    return (<>
+        {devices.map(device =>
+            <Device
+                key={device.id}
+                device={device}
+                deleteDeviceById={deleteDeviceById}
+                adminToken={adminToken}
+            />)}
+        <button onClick={cleanLocalToken} style={{ marginTop: "40px" }}>logout</button>
+    </>);
 
 }
 

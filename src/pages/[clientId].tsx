@@ -13,6 +13,7 @@ const DevicePage = () => {
   const { fetchDeviceById } = useDevices();
   const { clientId } = router.query;
   const [data, setData] = useState([]);
+  const [ip, setIp] = useState("");
 
   const listenerEspPath = (topic, payload, dup, qos, retain) => {
     const decoder = new TextDecoder("utf8");
@@ -46,20 +47,23 @@ const DevicePage = () => {
   }, [clientId]);
 
 
-  // useEffect(() => {
-  //     if (clientId) {
-  //         fetchDeviceById(clientId as string).then(device => {
-  //             if (!device) {
-  //                 router.push("/");
-  //             }
-  //         })
-  //     }
-  // }, [clientId]);
+  useEffect(() => {
+      if (clientId) {
+          fetchDeviceById(clientId as string).then(device => {
+              if (!device) {
+                  router.push("/");
+              }
+              if (device)
+                setIp(device.ip)
+          })
+      }
+  }, [clientId]);
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <h1 className={styles.title}>{clientId}</h1>
+        <p>{ip}</p>
       </header>
       <div>
         <Graphs data={data} />

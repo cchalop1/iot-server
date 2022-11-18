@@ -3,9 +3,8 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const isValidToken = (req: NextApiRequest) => {
+export const isValidToken = (req: NextApiRequest) => {
   const token = req.headers.authorization;
-  console.log(token);
 
   if (token === process.env.ADMIN_AUTH_TOKEN) {
     return true;

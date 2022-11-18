@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import { isValidToken } from ".";
 
 const prisma = new PrismaClient();
 
@@ -26,7 +27,9 @@ const randomId = () => String(Math.round(Math.random() * 10000));
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const { name } = req.query as QueryPostDevice;
-    const device = await prisma.device.findUniqueOrThrow({ where: { id: name } });
+    const device = await prisma.device.findUniqueOrThrow({
+      where: { id: name },
+    });
     if (!device) {
       return res.status(404);
     }
@@ -43,5 +46,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
     return res.json(newDevice);
+  } else if (req.method === "DELETE") {
+    if (!isValidToken(req)) {
+      return res.status(401).json({ message: "you are not allowed" });
+    }
+    const { name } = req.query as QueryPostDevice;
+    const result = await prisma.device.delete({ where: { id: name } });
+    return res.json(result);
   }
 };
