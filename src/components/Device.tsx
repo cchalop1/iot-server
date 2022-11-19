@@ -18,8 +18,6 @@ function Device({ device, deleteDeviceById, adminToken }: DeviceProps) {
         router.push(device.id);
     }
 
-    console.log(adminToken);
-
     return (<li className={styles.container} onClick={navigateToDivicePage}>
         <div>
             <div className={styles.name}>{device.name}</div>
